@@ -1,0 +1,43 @@
+
+
+https://www.youtube.com/watch?v=RStncO3zb8g
+
+
+install serial bluetooth terminal
+https://play.google.com/store/apps/details?id=de.kai_morich.serial_bluetooth_terminal&hl=en_AU
+
+open example sketch from arduino IDE
+arduino > menu > file > examples > bluetoothSerial (under fireBeetleESP32) > SerialToSerialBT
+
+upload the sketch to ESP32
+hold down boot button until sketch finished uploading ie sample arduino IDE output below
+
+Writing at 0x00010000... (2 %)
+etc etc etc
+Writing at 0x00098000... (100 %)
+Wrote 937632 bytes (558433 compressed) at 0x00010000 in 49.7 seconds (effective 151.0 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 144...
+
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (144 compressed) at 0x00008000 in 0.0 seconds (effective 945.2 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
+-----------------------------
+sketch now uploaded to ESP32 device
+press the 'en' button on the ESP32 to start.
+
+in arduino open serial monitor
+arduino > menu > tools > serial monitor
+
+should see output from the arduino sketch line
+Serial.println("The device started, now you can pair it with bluetooth!");
+
+on android phone, open the serial bluetooth monitor app.
+turn on bluetooth in android settings
+pair with the ESP32 device - should see the device name 'ESP32test' as set by the arduino sketch.
+in the serial bluetooth monitor app terminal (hamburger icon top left > terminal)
+can type text in the arduino serial monitor, it will be returned in the android bluetooth serial terminal.
+can type text in the android bluetooth serial terminal, it will be returned in the arduino serial monitor.

@@ -1,0 +1,9 @@
+
+https://docs.micropython.org/en/latest/esp32/tutorial/intro.html
+https://micropython.org/download#esp32
+
+https://randomnerdtutorials.com/getting-started-micropython-esp32-esp8266/
+https://randomnerdtutorials.com/install-upycraft-ide-windows-pc-instructions/
+
+
+http://docs.dfrobot.com/upycraft/

@@ -1,0 +1,33 @@
+ESP32 coders : experiencing weird inability to reinstall the CP210x USB to UART Bridge VCP Drivers
+
+os = windows 10 home ver 1803 [1]
+
+ https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers
+
+Completed the uninstall instructions below, no joy - the uninstall appears to be complete, reinstallation still fails to produce a working install. Have tried the usual reboot neccessary on a windows machine.
+
+https://www.silabs.com/community/interface/knowledge-base.entry.html/2014/11/19/uninstalling_thecp2-QPVH
+
+grep -nw '.' -e 'CP210'
+grep -nw '/c/Windows/INF' -e 'CP210'
+
+findstr pattern  filename
+findstr CP210  OEM*.inf
+
+found in multiple lines in OEM52.inf
+remove OEM52.inf & OEM52.PNF
+
+other useful(?) tip found during digging
+cmd prompt
+cd c:\
+SET DEVMGR_SHOW_NONPRESENT_DEVICES=1
+DEVMGMT.MSC   (this opens device manager)
+device manager > menu > view > show hidden devices
+this shows 'hidden devices' as greyed out listings in device manager.
+
+[1: had this working nicely until unknown issues caused drivers to disappear when checked under device manager]
+
+
+
+
+https://www.silabs.com/community/interface/forum.topic.html/reinstalling_thecp2-v8Nk
