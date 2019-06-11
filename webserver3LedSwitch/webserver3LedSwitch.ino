@@ -20,19 +20,25 @@ String header;
 // Auxiliar variables to store the current output state
 String output26State = "off";
 String output27State = "off";
+String outputOnBoardState = "off";
+
 
 // Assign output variables to GPIO pins
 const int output26 = 21;
 const int output27 = 19;
+const int outputOnBoard = LED_BUILTIN;
+
 
 void setup() {
   Serial.begin(115200);
   // Initialize the output variables as outputs
   pinMode(output26, OUTPUT);
   pinMode(output27, OUTPUT);
+  pinMode(outputOnBoard, OUTPUT);
   // Set outputs to LOW
   digitalWrite(output26, LOW);
   digitalWrite(output27, LOW);
+  digitalWrite(outputOnBoard, LOW);
 
   // Connect to Wi-Fi network with SSID and password
   Serial.print("Connecting to ");
@@ -89,6 +95,14 @@ void loop(){
               Serial.println("GPIO 27 off");
               output27State = "off";
               digitalWrite(output27, LOW);
+            } else if (header.indexOf("GET /onboard/on") >= 0) {
+              Serial.println("GPIO onboard on");
+              outputOnBoardState = "on";
+              digitalWrite(outputOnBoard, HIGH);
+            } else if (header.indexOf("GET /onboard/off") >= 0) {
+              Serial.println("GPIO onboard off");
+              outputOnBoardState = "off";
+              digitalWrite(outputOnBoard, LOW);
             }
             
             // Display the HTML web page
@@ -123,7 +137,18 @@ void loop(){
               client.println("<p><a href=\"/27/off\"><button class=\"button button2\">OFF</button></a></p>");
             }
             client.println("</body></html>");
-            
+
+            // Display current state, and ON/OFF buttons for GPIO onboard  
+            client.println("<p>C GPIO outputOnBoard - State " + outputOnBoardState + "</p>");
+            // If the outputOnBoardState is off, it displays the ON button       
+            if (outputOnBoardState=="off") {
+              client.println("<p><a href=\"/onboard/on\"><button class=\"button\">ON</button></a></p>");
+            } else {
+              client.println("<p><a href=\"/onboard/off\"><button class=\"button button2\">OFF</button></a></p>");
+            }
+            client.println("</body></html>");
+
+
             // The HTTP response ends with another blank line
             client.println();
             // Break out of the while loop
