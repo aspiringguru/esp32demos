@@ -2,6 +2,8 @@ void setup() {
   // put your setup code here, to run once:
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(115200);
+  Serial.println("LED_BUILTIN :"+LED_BUILTIN);
+
 }
 
 void loop() {
@@ -13,5 +15,11 @@ void loop() {
   delay(1000);
   Serial.println("setting LED_BUILTIN to LOW");
   digitalWrite(LED_BUILTIN, LOW);
-  delay(1000);
+  delay(500);
+  Serial.println("setting LED_BUILTIN to HIGH");
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(500);
+  Serial.println("setting LED_BUILTIN to HIGH");
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(500);
 }
