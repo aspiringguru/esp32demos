@@ -19,6 +19,10 @@
  * probably rejected by MQTT server due to not shutting down properly?
  * added code to shutdown the MQTT and WIFI connection. ran a bit longer but not reliable.
  * added delay(60000) within loop(). seems reliable.
+ * 
+ * todo
+ * add ntp clock sync on boot & obtain time function : https://github.com/espressif/arduino-esp32/issues/1265
+ * implement the sleep functions in the xylem code.
  */
 
 #include <WiFi.h>
