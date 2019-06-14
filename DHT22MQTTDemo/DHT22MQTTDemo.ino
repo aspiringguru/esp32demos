@@ -15,6 +15,10 @@
  * wire the dht22 sensor with data cable to pin 15, ground and 3V supply
  * NOTE: update to more reliable and more fully featured DHT22 driver. do not use the Adafruit DHT.h driver!!!
  * 
+ * current configuration: moved entire code base from setup()to loop().runs ok a couple of times then fails. 
+ * probably rejected by MQTT server due to not shutting down properly?
+ * added code to shutdown the MQTT and WIFI connection. ran a bit longer but not reliable.
+ * added delay(60000) within loop(). seems reliable.
  */
 
 #include <WiFi.h>
@@ -91,6 +95,11 @@ void doWork() {
   delay(100); //some delay is needed for the mqtt server to accept the message
   client.publish(humidity_topic, String(h).c_str(), true);
   Serial.println("published to mqtt");
+  //close MQTT
+  client.disconnect();
+  //close terminal
+  //close WiFi
+  WiFi.disconnect();
 }
 
 //Setup connection to wifi
@@ -134,4 +143,5 @@ void connectMQTT() {
 void loop() {
   // put your main code here, to run repeatedly:
   doWork();
+  delay(60000);
 }
