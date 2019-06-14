@@ -10,6 +10,10 @@
  * mosquitto_sub -p 1883 -d -t topic_temp1
  * 
  * https://xylem.aegean.gr/~modestos/mo.blog/esp32-send-dht-to-mqtt-and-deepsleep/
+ * https://github.com/markruys/arduino-DHT
+ * https://github.com/adafruit/Adafruit_Sensor
+ * wire the dht22 sensor with data cable to pin 15, ground and 3V supply
+ * NOTE: update to more reliable and more fully featured DHT22 driver. do not use the Adafruit DHT.h driver!!!
  * 
  */
 
@@ -20,12 +24,13 @@
 
 #define DHTPIN 15 
 #define DHTTYPE DHT22 
-DHT dht(DHTPIN, DHTTYPE);
+//DHT dht(DHTPIN, DHTTYPE);
+DHT dht;
 
-//const char* wifi_ssid = "SleepyGuest24";
-//const char* wifi_password =  "sleepyHollow";
-const char *wifi_ssid     =  "slqwireless";
-const char *wifi_password =  "";
+//const char* ssid = "SleepyGuest24";
+//const char* password =  "sleepyHollow";
+const char *ssid     =  "slqwireless";
+const char *password =  "";
 
 const char* mqttServer = "192.168.56.135";  //SLQ
 //const char* mqttServer = "192.168.1.118"; //home
@@ -66,14 +71,15 @@ void setup() {
     connectMQTT();
   }
   Serial.println("Connected to MQTT broker. sleeping.....");
-  delay(10000);
   Serial.println("end sleep. publishing to MQTT");
   client.publish("testTopic", "Hello from ESP32");
+  //initialise the DHT22 sensor. NB new driver detects type and only needs pin#
+  dht.setup(DHTPIN);
+  delay(dht.getMinimumSamplingPeriod());
   // Read temperature in Celcius
-  float t = dht.readTemperature();
+  float t = dht.getTemperature();
   // Read humidity
-  float h = dht.readHumidity();
-
+  float h = dht.getHumidity();
   Serial.print("Temperature : ");
   Serial.print(t);
   Serial.print(" | Humidity : ");
@@ -91,9 +97,9 @@ void setup_wifi() {
   delay(20);
   Serial.println();
   Serial.print("Connecting to ");
-  Serial.println(wifi_ssid);
+  Serial.println(ssid);
  
-  WiFi.begin(wifi_ssid, wifi_password);
+  WiFi.begin(ssid, password);
  
   while (WiFi.status() != WL_CONNECTED) {
     delay(100);
