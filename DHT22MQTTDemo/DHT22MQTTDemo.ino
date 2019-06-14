@@ -57,8 +57,10 @@ bool debug = true;             //Display log message if True
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-
 void setup() {
+}
+
+void doWork() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   Serial.println("Serial port started");
@@ -89,8 +91,7 @@ void setup() {
   delay(100); //some delay is needed for the mqtt server to accept the message
   client.publish(humidity_topic, String(h).c_str(), true);
   Serial.println("published to mqtt");
-
-}//end setup
+}
 
 //Setup connection to wifi
 void setup_wifi() {
@@ -113,7 +114,7 @@ void setup_wifi() {
  Serial.println("");
 }
  
-//Reconnect to wifi if connection is lost
+//Reconnect to MQTT if connection is lost
 void connectMQTT() {
   while (!client.connected()) {
     Serial.print("Connecting to MQTT broker ...");
@@ -132,5 +133,5 @@ void connectMQTT() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  doWork();
 }
