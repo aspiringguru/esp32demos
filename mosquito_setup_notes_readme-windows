@@ -94,10 +94,11 @@ netstat -a | findstr 1883
 open second cmd window
 cd C:\mosquitto
 ipconfig
-#192.168.1.118
+#sql =  192.168.56.135
+#home = 192.168.1.118
 
-mosquitto_sub -p 1800 -d -t testTopic
-mosquitto_pub -p 1800 -d -t testTopic -m "Hello world!"
+mosquitto_sub -p 1883 -d -t testTopic
+mosquitto_pub -p 1883 -d -t testTopic -m "Hello world!"
 
 mosquitto_sub  -d -t testTopic
 mosquitto_pub  -d -t testTopic -m "Hello world!"
