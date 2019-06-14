@@ -6,6 +6,8 @@
  * ipconfig to check ip number of mostquitto server
  * mosquitto_sub -p 1883 -d -t testTopic
  * mosquitto_pub -p 1883 -d -t testTopic -m "Hello world!"
+ * mosquitto_sub -p 1883 -d -t topic_humid1
+ * mosquitto_sub -p 1883 -d -t topic_temp1
  * 
  * https://xylem.aegean.gr/~modestos/mo.blog/esp32-send-dht-to-mqtt-and-deepsleep/
  * 
@@ -20,21 +22,23 @@
 #define DHTTYPE DHT22 
 DHT dht(DHTPIN, DHTTYPE);
 
-//const char* ssid = "SleepyGuest24";
-//const char* password =  "sleepyHollow";
-const char *ssid     =  "slqwireless";
-const char *password =  "";
+//const char* wifi_ssid = "SleepyGuest24";
+//const char* wifi_password =  "sleepyHollow";
+const char *wifi_ssid     =  "slqwireless";
+const char *wifi_password =  "";
 
 const char* mqttServer = "192.168.56.135";  //SLQ
 //const char* mqttServer = "192.168.1.118"; //home
 
 const int mqttPort = 1883;
+const char *wifi_device_name =  "ESP32Client";
+
 //dont need to use username and password
 //const char* mqttUser = "yourMQTTuser";
 //const char* mqttPassword = "yourMQTTpassword";
 
-#define temperature_topic "topic/temp1"       //Topic temperature
-#define humidity_topic "topic/humid1"         //Topic humidity
+#define temperature_topic "topic_temp1"       //Topic temperature
+#define humidity_topic "topic_humid1"         //Topic humidity
 #define debug_topic "debug"                   //Topic for debugging
  
 /* likely adjust these during dev/testing */
@@ -54,30 +58,71 @@ void setup() {
   Serial.begin(115200);
   Serial.println("Serial port started");
   Serial.println("Connecting to wifi");
-  WiFi.begin(ssid, password); 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print("...");
-  }
+  setup_wifi(); 
   Serial.println("Connected to the WiFi network"); 
-  client.setServer(mqttServer, mqttPort);
+  client.setServer(mqttServer, mqttPort); 
+  if (!client.connected()) {
+    Serial.println("mqtt connection attempt failed, retrying."); 
+    connectMQTT();
+  }
+  Serial.println("Connected to MQTT broker. sleeping.....");
+  delay(10000);
+  Serial.println("end sleep. publishing to MQTT");
+  client.publish("testTopic", "Hello from ESP32");
+  // Read temperature in Celcius
+  float t = dht.readTemperature();
+  // Read humidity
+  float h = dht.readHumidity();
+
+  Serial.print("Temperature : ");
+  Serial.print(t);
+  Serial.print(" | Humidity : ");
+  Serial.println(h);
+  // Publish values to MQTT topics
+  client.publish(temperature_topic, String(t).c_str(), true);
+  delay(100); //some delay is needed for the mqtt server to accept the message
+  client.publish(humidity_topic, String(h).c_str(), true);
+  Serial.println("published to mqtt");
+
+}//end setup
+
+//Setup connection to wifi
+void setup_wifi() {
+  delay(20);
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(wifi_ssid);
  
+  WiFi.begin(wifi_ssid, wifi_password);
+ 
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(100);
+    Serial.print(".");
+  }
+ 
+ Serial.println("");
+ Serial.println("WiFi is OK ");
+ Serial.print("=> ESP32 new IP address is: ");
+ Serial.print(WiFi.localIP());
+ Serial.println("");
+}
+ 
+//Reconnect to wifi if connection is lost
+void connectMQTT() {
   while (!client.connected()) {
-    Serial.println("Connecting to MQTT...");
-    //if (client.connect("ESP32Client", mqttUser, mqttPassword )) {
+    Serial.print("Connecting to MQTT broker ...");
+    //if (client.connect("ESP32Client", mqtt_user, mqtt_password)) {
     if (client.connect("ESP32Client")) {
-      Serial.println("connected to MQTT server");
+      Serial.println("MQTT broker connection OK");
     } else {
-      Serial.print("connection to mqtt server failed with state ");
-      Serial.println(client.state());
-      delay(2000);
- 
+      Serial.print("[Error] Not connected to MQTT broker client.state() = : ");
+      Serial.print(client.state());
+      Serial.println("Wait 5 seconds before retry.");
+      delay(5000);
     }
   }
-  Serial.println("Connected to MQTT broker.");
-  client.publish("testTopic", "Hello from ESP32");
+}//end connectMQTT
 
-}
 
 void loop() {
   // put your main code here, to run repeatedly:
