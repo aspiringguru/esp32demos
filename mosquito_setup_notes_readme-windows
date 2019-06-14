@@ -1,0 +1,121 @@
+Mosquitto for Windows
+=====================
+
+Mosquitto for Windows comes in 32-bit and 64-bit flavours.
+
+In both cases, the dependencies are not provided in this installer and must be
+installed separately in the case that they are not already available.
+
+
+Capabilities
+------------
+
+Some versions of Windows have limitations on the number of concurrent
+connections, set at approximately 2048 connections depending on the version of
+Windows you are using.
+
+
+Websockets
+----------
+
+The broker executables provided in the installers have Websockets support
+through a statically compiled version of libwebsockets and is being distributed
+under the Static Linking Exception (Section 2) of the License. As a result, the
+content is not subject to the LGPL 2.1.
+
+Please note that on Windows, libwebsockets limits connections to a maximum of 64 clients.
+
+Library Thread Support
+----------------------
+
+libmosquitto on Windows is currently compiled without thread support, so
+neither of mosquitto_loop_start() nor "mosquitto_pub -l" are available.
+
+A better solution that the old pthreads-win32 is being looked into, so support
+will return in the future. If you need thread support, the code still supports
+it just fine. Support has been dropped to simplify installation.
+
+Dependencies
+------------
+
+* OpenSSL
+    Link: http://slproweb.com/products/Win32OpenSSL.html
+    Install "Win32 OpenSSL 1.1.0* Light" or "Win64 OpenSSL 1.1.0* Light"
+    Required DLLs: libssl-1_1.dll, libcrypto-1_1.dll or libssl-1_1-x64.dll, libcrypto-1_1-x64.dll
+destination > C:\Program Files\OpenSSL-Win64
+yes, libssl-1_1-x64.dll, libcrypto-1_1-x64.dll are installed in C:\Program Files\OpenSSL-Win64
+libssl-1_1-x64.dll, libcrypto-1_1-x64.dll are both in C:\Program Files\mosquitto, same file name, older date.
+
+Please ensure that the required DLLs are on the system path, or are in the same directory as
+the mosquitto executable - usually C:\Program Files (x86)\mosquitto or C:\Program Files\mosquitto.
+
+Windows Service
+---------------
+
+If you wish, mosquitto can be installed as a Windows service so you can
+start/stop it from the control panel as well as running it as a normal
+executable.
+
+When running as a service, the configuration file used is mosquitto.conf in the
+directory that you installed to.
+
+If you want to install/uninstall mosquitto as a Windows service run from the
+command line as follows:
+
+C:\Program Files\mosquitto\mosquitto install
+C:\Program Files\mosquitto\mosquitto uninstall
+
+
+http://www.steves-internet-guide.com/install-mosquitto-broker/
+http://www.steves-internet-guide.com/mosquitto_pub-sub-clients/
+
+cd C:\mosquitto
+
+mosquitto install
+mosquitto --help
+
+#service version of mosquitto.
+sc query mosquitto
+sc start mosquitto
+sc stop mosquitto
+sc query mosquitto
+
+mosquitto -v
+#windows mosquitto does not load conf file unless told to
+mosquitto -v -c mosquitto.conf
+#NB: on windows logging is disabled!!!
+#NBB: mosquitto_pub & mosquitto_sub services will default to port 1883
+#NBB: mosquitto_pub & mosquitto_sub services will appear in netstat search results
+
+
+#check running on port 1883
+netstat -a | findstr 1883
+
+open second cmd window
+cd C:\mosquitto
+ipconfig
+#192.168.1.118
+
+mosquitto_sub -p 1800 -d -t testTopic
+mosquitto_pub -p 1800 -d -t testTopic -m "Hello world!"
+
+mosquitto_sub  -d -t testTopic
+mosquitto_pub  -d -t testTopic -m "Hello world!"
+
+
+#this tutorial works.
+https://randomnerdtutorials.com/testing-mosquitto-broker-and-client-on-raspbbery-pi/
+
+
+
+
+mosquitto_pub –-help
+mosquitto_pub -h 192.168.1.118 -m 'test1' -t 'room/light' -d
+
+https://iot.stackexchange.com/questions/1205/how-to-enable-websockets-on-mosquitto-running-on-windows
+
+
+https://www.digitalocean.com/community/questions/how-to-setup-a-mosquitto-mqtt-server-and-receive-data-from-owntracks
+
+
+python -m http.server 80 --bind 127.0.0.1

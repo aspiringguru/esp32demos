@@ -1,0 +1,15 @@
+https://techtutorialsx.com/2017/12/01/esp32-arduino-asynchronous-http-webserver/
+
+
+https://circuits4you.com/2019/01/25/esp8266-dht11-humidity-temperature-data-logging/
+
+https://circuits4you.com/2019/01/25/esp32-dht11-22-humidity-temperature-sensor-interfacing-example/
+
+NOTE  ESPAsyncWebServer does not work @ June 2019 (for me) avoid!
+
+
+http://www.iotsharing.com/2017/05/how-to-display-dht11-google-chart-jquery-led-control-esp32-webserver.html
+this needs SD card holder/shield
+
+
+http://www.steves-internet-guide.com/simple-controllable-mqtt-sensor/

@@ -1,5 +1,9 @@
 /*
  * https://circuits4you.com/2019/01/25/esp32-dht11-22-humidity-temperature-sensor-interfacing-example/
+ * check arduino set to firbeetle es32 board.
+ * needs DHT_sensor_library_for_ESPx dir installed in C:\Users\Matthew\Documents\Arduino\libraries\
+ * via meni > sketch > include library > manage library > search for 'dhtesp' 
+ * reference > https://desire.giesecke.tk/index.php/2018/01/30/esp32-dht11/
  * 
  */
 

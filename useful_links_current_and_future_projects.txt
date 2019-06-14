@@ -1,3 +1,9 @@
 GY-521 sensor
 https://www.mschoeffler.de/2017/10/05/tutorial-how-to-use-the-gy-521-module-mpu-6050-breakout-board-with-the-arduino-uno/
 https://create.arduino.cc/projecthub/Nicholas_N/how-to-use-the-accelerometer-gyroscope-gy-521-6dfc19
+
+
+touch sensors
+https://microcontrollerslab.com/esp32-touch-sensor-button-example/
+pinout info
+https://randomnerdtutorials.com/esp32-pinout-reference-gpios/
