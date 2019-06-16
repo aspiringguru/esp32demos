@@ -11,34 +11,34 @@
 #include <DHT.h>
 #include <Adafruit_Sensor.h>
 
-//const char* ssid = "SleepyGuest24";
-//const char* password =  "sleepyHollow";
-const char *ssid     =  "slqwireless";
-const char *password =  "";
+const char* ssid = "SleepyGuest24";
+const char* password =  "sleepyHollow";
+//const char *ssid     =  "slqwireless";
+//const char *password =  "";
 
 
 #define uS_TO_S_FACTOR 1000000        /* Conversion factor for micro seconds to seconds */
 #define TIME_TO_SLEEP 60              /* Time ESP32 will go to sleep for 1 minutes (in seconds) */
-#define DHTPIN 15 
-#define DHTTYPE DHT22 
+#define DHTPIN 15
+#define DHTTYPE DHT22
 //DHT dht(DHTPIN, DHTTYPE);
 //DHT dht(DHTPIN);
 DHT dht;
- 
+
 void setup()
 {
   Serial.begin(115200);
   Serial.println("started");
   Serial.print("Connecting to ");
   Serial.println(ssid);
-  
+
   WiFi.begin(ssid, password);
-  
+
   while (WiFi.status() != WL_CONNECTED) {
     delay(100);
     Serial.print(".");
   }
-  
+
   Serial.println("");
   Serial.println("WiFi is OK ");
   obtain_time();
@@ -58,12 +58,12 @@ void setup()
   Serial.println(dht.getLowerBoundHumidity());
   Serial.print("dht.getUpperBoundHumidity():");
   Serial.println(dht.getUpperBoundHumidity());
-  esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
+  //esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
   Serial.println("Setup ESP32 to sleep for every " + String(TIME_TO_SLEEP) + " Seconds");
   Serial.println("Going to sleep as normal now.");
-  esp_deep_sleep_start();
+  //esp_deep_sleep_start();
  }
- 
+
 void loop()
 {
   delay(dht.getMinimumSamplingPeriod());
@@ -80,7 +80,7 @@ void loop()
   //Serial.print(temp_f);
   Serial.println();
 
-  
+
   delay(5000);
 }
 

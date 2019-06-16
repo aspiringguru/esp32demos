@@ -3,6 +3,9 @@
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <ESPDash.h>
+#include <DHT.h>
+#include <Adafruit_Sensor.h>
+
 
 AsyncWebServer server(80);
 
@@ -10,6 +13,13 @@ AsyncWebServer server(80);
 //const char* password = "123456"; // Your WiFi Password
 const char* ssid     = "SleepyGuest24";
 const char* password = "sleepyHollow";
+
+float temperature;
+float humidity;
+
+#define DHTPIN 15
+DHT dht;
+
 
 void sliderChanged(const char* id, int value){
    Serial.println("Slider Changed - "+String(id)+" "+String(value));
@@ -35,18 +45,27 @@ void setup() {
     }
     Serial.print("IP Address: ");
     Serial.println(WiFi.localIP());
+
+    dht.setup(DHTPIN);
+    Serial.print("dht.getModel():");
+    Serial.println(dht.getModel());
+    Serial.print("dht.getMinimumSamplingPeriod():");
+    Serial.println(dht.getMinimumSamplingPeriod());
     
+
     ESPDash.init(server);   // Initiate ESPDash and attach your Async webserver instance
     // Attach Slider Change Events
     ESPDash.attachSliderChanged(sliderChanged);
 
     ESPDash.addSliderCard("slider1", "Gauge Slider", 3);
     ESPDash.addGaugeChart("gauge1", "Gauge 1");
-    ESPDash.addGaugeChart("gauge2", "Gauge 2");
-    ESPDash.updateGaugeChart("gauge2", 10);
+    ESPDash.addGaugeChart("temp", "Temperature");
+    ESPDash.updateGaugeChart("temp", 0);
+    ESPDash.addGaugeChart("humidity", "Humidity");
+    ESPDash.updateGaugeChart("humidity", 0);
     ESPDash.addNumberCard("number1", "Number One", 50);
-    ESPDash.addTemperatureCard("temp1", "Temp One", 0, 5);
-    ESPDash.addHumidityCard("hudmidity1", "Humidity One", 3);
+    ESPDash.addTemperatureCard("temperature", "Temperature(C)", 0, 0);
+    ESPDash.addHumidityCard("humidity", "Humidity", 0);
     ESPDash.addStatusCard("status1", "Status One", 0);
     ESPDash.addButtonCard("button1", "Button One");
 
@@ -62,5 +81,21 @@ void loop() {
       y_axis[i] = random(2, 20);
   }
   ESPDash.updateLineChart("chart1", x_axis, x_axis_size, y_axis, y_axis_size);
+
+  delay(dht.getMinimumSamplingPeriod());
+  temperature = dht.getTemperature();
+  float humidity = dht.getHumidity();
+  Serial.print("Temperature(C): ");
+  Serial.print(temperature);
+  Serial.print("  Humidity: ");
+  Serial.print(humidity);
+  //Serial.print("Temperature(F): ");
+  //Serial.print(temp_f);
+  Serial.println();
+  ESPDash.updateGaugeChart("temp", temperature);
+  ESPDash.updateGaugeChart("humidity", humidity);
+  ESPDash.updateTemperatureCard("temperature", temperature);
+  ESPDash.updateHumidityCard("humidity", humidity);
+    
   delay(1000);
 }
