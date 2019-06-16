@@ -1,0 +1,9 @@
+http://www.steves-internet-guide.com/logging-mqtt-sensor-data-to-sql-database-with-python/
+
+https://www.researchgate.net/publication/325943607_Weather_tracking_system_using_MQTT_and_SQLite
+http://charlesleifer.com/blog/going-fast-with-sqlite-and-python/
+https://github.com/pradeesi/Store_MQTT_Data_in_Database/blob/master/store_Sensor_Data_to_DB.py
+
+https://pypi.org/project/MqttSqliteLogger/
+
+https://github.com/curzon01/mqtt2sql

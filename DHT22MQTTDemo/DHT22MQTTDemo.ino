@@ -40,7 +40,7 @@ DHT dht;
 const char *ssid     =  "slqwireless";
 const char *password =  "";
 
-const char* mqttServer = "192.168.56.135";  //SLQ
+const char* mqttServer = "192.168.56.163";  //SLQ
 //const char* mqttServer = "192.168.1.118"; //home
 
 const int mqttPort = 1883;
@@ -60,12 +60,34 @@ const char *wifi_device_name =  "ESP32Client";
 #define TIME_TO_SLEEP 900              /* Time ESP32 will go to sleep for 15 minutes (in seconds) */
 #define TIME_TO_SLEEP_ERROR 3600       /* Time to sleep in case of error (1 hour) */
 bool debug = true;             //Display log message if True
+float t;
+float h;
 
- 
+
 WiFiClient espClient;
 PubSubClient client(espClient);
 
 void setup() {
+}
+
+void getReadings(){
+  //initialise the DHT22 sensor. NB new driver detects type and only needs pin#
+  dht.setup(DHTPIN);
+  delay(dht.getMinimumSamplingPeriod());
+  // Read temperature in Celcius
+  t = dht.getTemperature();
+  while ( isnan(t) ){
+    Serial.println("[ERROR] Please check the DHT sensor !");
+    delay(dht.getMinimumSamplingPeriod());
+    t = dht.getTemperature();
+  }
+  // Read humidity
+  h = dht.getHumidity();
+  while ( isnan(h) ){
+    Serial.println("[ERROR] Please check the DHT sensor !");
+    delay(dht.getMinimumSamplingPeriod());
+    h = dht.getHumidity();
+  }
 }
 
 void doWork() {
@@ -83,13 +105,8 @@ void doWork() {
   Serial.println("Connected to MQTT broker. sleeping.....");
   Serial.println("end sleep. publishing to MQTT");
   client.publish("testTopic", "Hello from ESP32");
-  //initialise the DHT22 sensor. NB new driver detects type and only needs pin#
-  dht.setup(DHTPIN);
-  delay(dht.getMinimumSamplingPeriod());
-  // Read temperature in Celcius
-  float t = dht.getTemperature();
-  // Read humidity
-  float h = dht.getHumidity();
+  getReadings();
+  
   Serial.print("Temperature : ");
   Serial.print(t);
   Serial.print(" | Humidity : ");

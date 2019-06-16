@@ -1,7 +1,13 @@
-o/*********
+/*********
   Rui Santos
-  Complete project details at http://randomnerdtutorials.com 
-  https://randomnerdtutorials.com/esp32-web-server-arduino-ide/ 
+  Complete project details at http://randomnerdtutorials.com
+  https://randomnerdtutorials.com/esp32-web-server-arduino-ide/
+  also see
+  https://randomnerdtutorials.com/esp32-access-point-ap-web-server/
+
+  another nice webserver interface example.
+  https://diyprojects.io/bootstrap-create-beautiful-web-interface-projects-esp8266/#.XQWdmLwzZEY
+
 *********/
 
 // Load Wi-Fi library
@@ -77,7 +83,7 @@ void loop(){
             client.println("Content-type:text/html");
             client.println("Connection: close");
             client.println();
-            
+
             // turns the GPIOs on and off
             if (header.indexOf("GET /26/on") >= 0) {
               Serial.println("GPIO 26 on");
@@ -104,33 +110,33 @@ void loop(){
               outputOnBoardState = "off";
               digitalWrite(outputOnBoard, LOW);
             }
-            
+
             // Display the HTML web page
             client.println("<!DOCTYPE html><html>");
             client.println("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
             client.println("<link rel=\"icon\" href=\"data:,\">");
-            // CSS to style the on/off buttons 
+            // CSS to style the on/off buttons
             // Feel free to change the background-color and font-size attributes to fit your preferences
             client.println("<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}");
             client.println(".button { background-color: #4CAF50; border: none; color: white; padding: 16px 40px;");
             client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}");
             client.println(".button2 {background-color: #555555;}</style></head>");
-            
+
             // Web Page Heading
             client.println("<body><h1>ESP32 Web Server</h1>");
-            
-            // Display current state, and ON/OFF buttons for GPIO 26  
+
+            // Display current state, and ON/OFF buttons for GPIO 26
             client.println("<p>A GPIO 26 - State " + output26State + "</p>");
-            // If the output26State is off, it displays the ON button       
+            // If the output26State is off, it displays the ON button
             if (output26State=="off") {
               client.println("<p><a href=\"/26/on\"><button class=\"button\">ON</button></a></p>");
             } else {
               client.println("<p><a href=\"/26/off\"><button class=\"button button2\">OFF</button></a></p>");
-            } 
-               
-            // Display current state, and ON/OFF buttons for GPIO 27  
+            }
+
+            // Display current state, and ON/OFF buttons for GPIO 27
             client.println("<p>B GPIO 27 - State " + output27State + "</p>");
-            // If the output27State is off, it displays the ON button       
+            // If the output27State is off, it displays the ON button
             if (output27State=="off") {
               client.println("<p><a href=\"/27/on\"><button class=\"button\">ON</button></a></p>");
             } else {
@@ -138,9 +144,9 @@ void loop(){
             }
             client.println("</body></html>");
 
-            // Display current state, and ON/OFF buttons for GPIO onboard  
+            // Display current state, and ON/OFF buttons for GPIO onboard
             client.println("<p>C GPIO outputOnBoard - State " + outputOnBoardState + "</p>");
-            // If the outputOnBoardState is off, it displays the ON button       
+            // If the outputOnBoardState is off, it displays the ON button
             if (outputOnBoardState=="off") {
               client.println("<p><a href=\"/onboard/on\"><button class=\"button\">ON</button></a></p>");
             } else {

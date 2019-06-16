@@ -120,3 +120,15 @@ https://www.digitalocean.com/community/questions/how-to-setup-a-mosquitto-mqtt-s
 
 
 python -m http.server 80 --bind 127.0.0.1
+
+
+#mqtt lens tutorial - use with mqtt to diagnose and test.
+https://sivatechworld.wordpress.com/2015/08/01/installing-and-using-mqtt-lens-with-mosquitto/
+
+https://github.com/sandro-k/MQTTLensChromeApp
+#requires detailed build process, easier to install from chrome webstore.
+https://chrome.google.com/webstore/detail/mqttlens/hemojaaeigabkbcookmlgmdigohjobjm
+
+
+https://pypi.org/project/MqttSqliteLogger/
+pip install MqttSqliteLogger
