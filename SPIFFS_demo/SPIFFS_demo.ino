@@ -1,3 +1,8 @@
+/*
+ * https://techtutorialsx.com/2018/08/05/esp32-arduino-spiffs-writing-a-file/
+ * 
+ */
+
 #include "SPIFFS.h"
  
 void setup() {
