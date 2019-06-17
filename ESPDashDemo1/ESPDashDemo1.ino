@@ -14,29 +14,44 @@ AsyncWebServer server(80);
 const char* ssid     = "SleepyGuest24";
 const char* password = "sleepyHollow";
 
+const char* button1Name = "btn1";
+const char* button2Name = "btn2";
+
 float temperature;
 float humidity;
 
+#define LED 2
 #define DHTPIN 15
 DHT dht;
 
 
-void sliderChanged(const char* id, int value){
-   Serial.println("Slider Changed - "+String(id)+" "+String(value));
-   ESPDash.updateGaugeChart("gauge1", value);
-   ESPDash.updateStatusCard("status1", 5);
-}
 
 // Line Chart Data
-int x_axis_size = 7;
-String x_axis[7] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}; 
-int y_axis_size = 7;
-int y_axis[7] = {2, 5, 10, 12, 18, 8, 5};
+int x_axis_size = 10;
+String x_axis[10] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}; 
+int y_axis_size = 10;
+int y_axis[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+int x2_axis_size = 10;
+String x2_axis[10] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}; 
+int y2_axis_size = 10;
+int y2_axis[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-
+void btnCallback(const char* id){
+  Serial.println("Button pressed on Dash, ID - '"+String(id)+"'");
+  if(strcmp(button1Name,id)==0) {
+    Serial.println("Button One pressed");
+    digitalWrite(LED, HIGH); // Turn LED ON
+  }
+  if(strcmp(button2Name,id)==0) {
+    Serial.println("Button Two pressed");
+    digitalWrite(LED, LOW); // Turn LED OFF
+  }
+}
 
 void setup() {
     Serial.begin(115200);
+    pinMode(LED, OUTPUT);
+    digitalWrite(LED, LOW);
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, password);
     if (WiFi.waitForConnectResult() != WL_CONNECTED) {
@@ -54,33 +69,23 @@ void setup() {
     
 
     ESPDash.init(server);   // Initiate ESPDash and attach your Async webserver instance
-    // Attach Slider Change Events
-    ESPDash.attachSliderChanged(sliderChanged);
 
-    ESPDash.addSliderCard("slider1", "Gauge Slider", 3);
-    ESPDash.addGaugeChart("gauge1", "Gauge 1");
-    ESPDash.addGaugeChart("temp", "Temperature");
-    ESPDash.updateGaugeChart("temp", 0);
-    ESPDash.addGaugeChart("humidity", "Humidity");
-    ESPDash.updateGaugeChart("humidity", 0);
-    ESPDash.addNumberCard("number1", "Number One", 50);
+    //ESPDash.addGaugeChart("temp", "Temperature");
+    //ESPDash.updateGaugeChart("temp", 0);
+    //ESPDash.addGaugeChart("humidity", "Humidity");
+    //ESPDash.updateGaugeChart("humidity", 0);
     ESPDash.addTemperatureCard("temperature", "Temperature(C)", 0, 0);
     ESPDash.addHumidityCard("humidity", "Humidity", 0);
-    ESPDash.addStatusCard("status1", "Status One", 0);
-    ESPDash.addButtonCard("button1", "Button One");
-
-    ESPDash.addLineChart("linechart1", "Line Chart One", x_axis, x_axis_size, "y_axis_name", y_axis, y_axis_size);
+    ESPDash.addLineChart("temperature", "Temperature(C)", x_axis, x_axis_size, "degrees celcius", y_axis, y_axis_size);
+    ESPDash.addLineChart("humidity", "Humidity(%)", x2_axis, x2_axis_size, "percentage", y2_axis, y2_axis_size);
+    ESPDash.attachButtonClick(btnCallback);
+    ESPDash.addButtonCard(button1Name, "ON");
+    ESPDash.addButtonCard(button2Name, "OFF");
     
     server.begin();
 }
 
 void loop() {
-
-  // Fill Data with random Values
-  for(int i=0; i < 7; i++){
-      y_axis[i] = random(2, 20);
-  }
-  ESPDash.updateLineChart("chart1", x_axis, x_axis_size, y_axis, y_axis_size);
 
   delay(dht.getMinimumSamplingPeriod());
   temperature = dht.getTemperature();
@@ -92,10 +97,34 @@ void loop() {
   //Serial.print("Temperature(F): ");
   //Serial.print(temp_f);
   Serial.println();
-  ESPDash.updateGaugeChart("temp", temperature);
-  ESPDash.updateGaugeChart("humidity", humidity);
+  //ESPDash.updateGaugeChart("temp", temperature);
+  //ESPDash.updateGaugeChart("humidity", humidity);
   ESPDash.updateTemperatureCard("temperature", temperature);
   ESPDash.updateHumidityCard("humidity", humidity);
+
+  //Serial.print("y_axis Temperature:");
+  for (int i = 1; i < y_axis_size; i++)
+   {
+     y_axis[i-1] = y_axis[i];
+     //Serial.print(y_axis[i]);
+     //Serial.print(", ");
+   }
+  y_axis[y_axis_size-1] = temperature;
+  //Serial.println(y_axis[y_axis_size-1]);
+
+  //Serial.print("y_axis2 Humidity:");
+  for (int i = 1; i < y2_axis_size; i++)
+   {
+     y2_axis[i-1] = y2_axis[i];
+     //Serial.print(y2_axis[i]);
+     //Serial.print(", ");
+   }
+  y2_axis[y2_axis_size-1] = humidity;
+
+  
+  ESPDash.updateLineChart("temperature", x_axis, x_axis_size, y_axis, y_axis_size);  
+  ESPDash.updateLineChart("humidity", x2_axis, x2_axis_size, y2_axis, y2_axis_size);  
+  
     
   delay(1000);
 }
