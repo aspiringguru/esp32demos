@@ -4,10 +4,10 @@
    you can copy and paste full code
 
    https://www.base64encode.org/ use this to convert plaintest to base64 encoded.
-   also look at these references 
+   also look at these references
    https://techtutorialsx.com/2019/01/05/esp32-arduino-base64-encoding-using-crypto-base64-lib/
    https://techtutorialsx.com/2018/11/27/esp32-arduino-base64-decoding/
-   
+
    update Arduino\libraries\ESP32_Gmail_Sender-master\Gsender_32.h
    EMAILBASE64_LOGIN & EMAILBASE64_PASSWORD with base64 version of email & password
    NB: plaintext version of email for FROM
@@ -32,8 +32,7 @@ uint16_t reconnect_interval = 10000;             // If not connected wait time t
 
 String address[] = {"sleepyhollowinoz@gmail.com", "latindancevideos@gmail.com"};
 
-uint8_t WiFiConnect(const char* nSSID = nullptr, const char* nPassword = nullptr)
-{
+uint8_t WiFiConnect(const char* nSSID = nullptr, const char* nPassword = nullptr){
   static uint16_t attempt = 0;
   Serial.print("Connecting to ");
   if (nSSID) {
@@ -63,7 +62,7 @@ uint8_t WiFiConnect(const char* nSSID = nullptr, const char* nPassword = nullptr
   Serial.print("Got IP address: ");
   Serial.println(WiFi.localIP());
   return true;
-}
+}//end WiFiConnect
 
 void Awaits()
 {

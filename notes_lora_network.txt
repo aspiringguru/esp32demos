@@ -1,0 +1,93 @@
+
+
+https://www.nnnco.com.au/device-certification/
+https://www.arnnet.com.au/article/656540/nnnco-selects-dicker-data-first-ever-iot-distributor/
+
+
+
+https://wisen.com.au/blog/running-a-wireless-temp-and-humidity-sensor-for-over-1-year-on-a-cr2032/
+
+
+https://www.sparkfun.com/products/12823
+$11.23
+RFM68CW radio module
+https://johan.kanflo.com/category/rfm69/
+
+https://www.semtech.com/
+
+
+
+https://create.arduino.cc/projecthub/infoelectorials/project-015-arduino-reyax-rylr896-lora-module-project-8fac15
+
+
+http://reyax.com.cn/wp-content/uploads/2017/09/RYLR896_EN.pdf
+
+US$15 each
+https://www.ebay.com/itm/REYAX-RYLR896-Lora-module-SX1276-UART-868MHz-915MHz-Antenna-AT-command-FCC-NCC-/181562403752
+
+Arduino Reyax RYLR896 LoRa Module Project
+https://www.hackster.io/infoelectorials/project-015-arduino-reyax-rylr896-lora-module-project-8fac15
+
+REYAX RYLR896 LORA TRANSCEIVER MODULE
+https://www.electorials.com/review-013-reyax-rylr896-lora-transceiver-module-review.html
+reyax documentation
+http://reyax.com/wp-content/uploads/2018/01/REYAX-Lora-AT-COMMAND-GUIDE_EN.pdf
+
+
+ESP8266 & LoRa based messenger
+LoRa Messenger for two devices for distance up to
+https://hackaday.io/project/164090/instructions
+https://github.com/akarsh98/LRM
+
+demo using RYLR896 to transmit messages between arduino devices
+https://www.youtube.com/watch?v=uozq47oxfwE
+nb: configure RYLR896 as base or node
+code in video @ 9:06
+
+https://create.arduino.cc/projecthub/infoelectorials/project-015-arduino-reyax-rylr896-lora-module-project-8fac15?f=1#comments
+//transmitter
+//------------------------------------------------------------------------------
+#define ledPin 2
+unsigned long lastTransmission;
+const int interval = 1000;
+
+void setup(){
+    Serial.begin(115200);
+    pinMode(ledPin,OUTPUT);
+}
+
+void loop(){
+    if (millis() > lastTransmission + interval){
+        Serial.println("AT+SEND=0,8,Testing!");
+        digitalWrite(ledPin,HIGH);
+        delay(100);
+        digitalWrite(ledPin, LOW);
+        lastTransmission = millis();
+    }
+}
+//------------------------------------------------------------------------------
+//receiver
+
+#define ledPin 2
+String incomingString;
+
+void setup(){
+    Serial.begin(115200);
+    pinMode(ledPin,OUTPUT);
+}
+
+void loop(){
+    if (Serial.available()){
+        incomingString = Serial.readString();
+        if(incomingString.indexOf("Testing!") == 0){
+            digitalWrite(ledPin,HIGH);
+            delay(100);
+            digitalWrite(ledPin,LOW);
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+
+not RYLR896
+https://github.com/sandeepmistry/arduino-LoRa

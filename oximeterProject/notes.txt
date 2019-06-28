@@ -1,0 +1,25 @@
+
+
+
+https://www.adafruit.com/product/2796
+$19.95
+Adafruit Feather M0 Adalogger
+
+high accuracy oximeter
+https://www.instructables.com/id/Pulse-Oximeter-With-Much-Improved-Precision/
+
+https://www.maximintegrated.com/en/design/reference-design-center/system-board/6300.html/tb_tab0
+
+
+
+https://www.banggood.com/MLX90614ESF-AAA-Non-contact-Human-Body-Infrared-IR-Temperature-Sensor-Module-For-Arduino-p-1100990.html?gmcCountry=AU&currency=AUD&createTmp=1&utm_source=googleshopping&utm_medium=cpc_bgs&utm_content=frank&utm_campaign=pla-ele-au-pc-0625&ad_id=357631986148&gclid=CjwKCAjwr8zoBRA0EiwANmvpYDSxGtB2Nt8UoEE7YkFCV0g6I13IOl-_ySlwgHmqMxo_MOmq_HXsrhoCsdIQAvD_BwE&cur_warehouse=CN
+non contact temp sensors
+
+
+
+https://www.youtube.com/watch?v=3nt7BsDPND0
+LM35
+good tech demo
+https://www.youtube.com/watch?v=3nt7BsDPND0
+
+https://learn.adafruit.com/tmp36-temperature-sensor/using-a-temp-sensor
