@@ -34,16 +34,18 @@ template <typename T_ty> const char * TypeInfo<T_ty>::name = "unknown";
 
 // Handy macro to make querying stuff easier.
 #define TYPE_NAME(var) TypeInfo< typeof(var) >::name
-
 // Handy macro to make defining stuff easier.
 #define MAKE_TYPE_INFO(type)  template <> const char * TypeInfo<type>::name = #type;
-
 // Type-specific implementations.
 MAKE_TYPE_INFO( int )
 MAKE_TYPE_INFO( float )
 MAKE_TYPE_INFO( short )
 
 
+String types(String a){return ("it's a String");}
+String types(int a)   {return ("it's an int");}
+String types(char* a) {return ("it's a char*");}
+String types(float a) {return ("it's a float");} 
 
 uint8_t WiFiConnect(const char* nSSID = nullptr, const char* nPassword = nullptr){
   static uint16_t attempt = 0;
@@ -109,7 +111,7 @@ void setup(){
         AsyncWebParameter* p = request->getParam(i);
         Serial.print("Param name: ");
         Serial.println(p->name());
-s        String temp = p->name();
+        String temp = p->name();
         temp.toCharArray(UserSsid, 32);
         Serial.print("Param value: ");
         Serial.println(p->value());
@@ -117,13 +119,17 @@ s        String temp = p->name();
         temp.toCharArray(UserPassword, 32);
         Serial.println("------");
     } 
-    Serial.println("turninf off WifiAccess Point");
+    Serial.println("turning off WifiAccess Point");
     //turn off access point
     WiFi.softAPdisconnect(true);
-    Serial.print("connect to wifi using UserSsid:");
+    Serial.println("connect to wifi using UserSsid:");
     Serial.print(UserSsid);
-    Serial.print(", UserPassword:");
+    Serial.print(",  ");
+    Serial.println(types(UserPassword));
+    Serial.print("UserPassword:");
     Serial.println(UserPassword);
+    Serial.print(",  ");
+    Serial.println(types(UserPassword));
     /*
     WiFiConnect(UserSsid, UserPassword); //needs to be char*
     Serial.print("connected to wifi ssid:");
@@ -145,6 +151,7 @@ s        String temp = p->name();
   server.on("/html", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(200, "text/html", HTML);
     Serial.println("HTTP_GET for /html "); 
+    /*
     int paramsNr = request->params();
     Serial.println("# of params in form = paramsNr:");
     Serial.println(paramsNr);
@@ -156,10 +163,11 @@ s        String temp = p->name();
         Serial.println(p->value());
         Serial.println("------");
     } 
+    */
   });
  
   server.begin();
 }
  
 void loop(){
-  }
+}

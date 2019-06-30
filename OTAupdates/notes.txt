@@ -1,0 +1,22 @@
+
+
+https://atadiat.com/en/e-esp8266-esp32-wifi-serial-bridge-converter/
+
+https://randomnerdtutorials.com/esp8266-ota-updates-with-arduino-ide-over-the-air/
+
+
+http://arduino.esp8266.com/Arduino/versions/2.0.0/doc/ota_updates/ota_updates.html
+
+
+https://lastminuteengineers.com/esp8266-ota-updates-arduino-ide/
+
+
+jan 18 2018
+https://hackaday.com/2018/01/18/over-the-air-updates-for-your-arduino/
+
+
+https://randomnerdtutorials.com/esp32-over-the-air-ota-programming/
+
+
+#ESP8266 Automatic Update Server
+https://www.instructables.com/id/Set-Up-an-ESP8266-Automatic-Update-Server/
