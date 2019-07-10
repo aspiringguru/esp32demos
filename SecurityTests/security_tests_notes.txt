@@ -1,0 +1,11 @@
+
+
+https://www.youtube.com/watch?v=Wm1xKj4bKsY
+
+https://github.com/espressif/arduino-esp32/blob/master/tools/sdk/include/wpa_supplicant/crypto/crypto.h
+
+https://www.thingforward.io/techblog/2018-07-18-https-on-the-esp32-server-and-client-side.html
+
+
+locost secure wifi camera
+https://www.nabto.com/esp32/

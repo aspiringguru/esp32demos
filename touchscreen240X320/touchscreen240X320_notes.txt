@@ -1,0 +1,24 @@
+
+gReatScott - swiss guy, v good.
+https://www.youtube.com/watch?v=SIo_Gv7K7Fo
+https://www.ebay.com/itm/192163706724
+
+https://www.patreon.com/posts/20817428
+
+
+
+https://howtomechatronics.com/tutorials/arduino/arduino-tft-lcd-touch-screen-tutorial/
+
+
+low memory usage example. does not need the external library
+https://create.arduino.cc/projecthub/calogerus/arduino-uno-2-4-tft-lcd-display-shield-touch-panel-ili9341-576b1b
+
+https://www.instructables.com/id/Arduino-Touch-Screen-TFT-LCD-Tutorial-First-Review/
+
+
+looks like esp32 can drive the touchscreen
+https://educ8s.tv/arduino-2-8-ili9341-tutorial/
+
+
+compare arduinos
+https://hilo90mhz.com/arduino-esp32-esp8266-101-speed-test-comparison-chart/

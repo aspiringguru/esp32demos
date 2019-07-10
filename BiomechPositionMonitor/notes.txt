@@ -1,0 +1,27 @@
+
+
+electromagnetics
+
+https://www.sparkfun.com/products/13723
+MyoWare Muscle Sensor $38
+
+
+ExPen$ive
+https://3dcoil.grupopremo.com/
+
+
+https://polhemus.com/_assets/img/Measuring_and_Analyzing_Fine_Motor_Skills.pdf
+refers use of electromagnetics but no examples of sensors used.
+
+
+https://au.element14.com/dfrobot/dfr0033/digital-magnetic-sensor/dp/2946098?gclid=Cj0KCQjw3uboBRDCARIsAO2XcYDUQmrwFP8FWGn240gIJleNzeTiVYcxH4EBfj0sH0jmYkD4TYUAPHwaAuTaEALw_wcB&gross_price=true&mckv=s5AvQGViJ_dc|pcrid|59148083448|pkw||pmt||slid||product|2946098|pgrid|12550800888|ptaid|aud-112905144048:pla-92315478965|&CMP=KNC-GOO-SHOPPING-2946098
+cheap, accurate? needs lots of integration to measure accuracy
+
+https://www.instructables.com/id/Tutorial-to-Interface-HMC-5833L-With-Arduino-Uno/
+HMC5883L is a 3-axis digital compass
+
+
+https://www.electronicwings.com/arduino/magnetometer-hmc5883l-interfacing-with-arduino-uno
+has code & library for the sensor
+
+http://www.electronoobs.com/eng_arduino_tut77.php

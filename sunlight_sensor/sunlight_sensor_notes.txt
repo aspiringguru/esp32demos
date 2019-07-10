@@ -1,0 +1,35 @@
+
+
+https://github.com/QuentinCG/Arduino-Light-Dependent-Resistor-Library
+https://www.ebay.com/itm/112061701006
+very cheap, 30 for $1.20
+
+https://en.wikipedia.org/wiki/Photoresistor
+https://maker.pro/arduino/tutorial/how-to-use-an-ldr-sensor-with-arduino
+
+competing products on market
+https://www.amazon.com/Luster-Leaf-1875-Rapitest-Calculator/dp/B002XZLLXU
+
+https://www.solarpathfinder.com/
+non electronic, $299US
+https://www.solarpathfinder.com/PF?id=DqUUWGcs
+
+
+
+http://wiki.seeedstudio.com/Grove-Sunlight_Sensor/
+measures IR and UV
+https://www.seeedstudio.com/Grove-Sunlight-Sensor-p-2530.html
+$9.90
+
+
+ML8511
+utputs a analog voltage that is linearly related to the measured UV intensity (mW/cm2).
+https://learn.sparkfun.com/tutorials/ml8511-uv-sensor-hookup-guide/all
+
+http://arduinolearning.com/code/arduino-and-ml8511-example.php
+
+https://www.youtube.com/watch?v=jnG5_4K6RAM
+UV Meter using UV Sensor ML8511/GY8511 with Arduino
+lcd output
+https://www.elecrow.com/wiki/index.php?title=UV_Sensor_ML8511
+https://www.how2electronics.com/uv-sensor-ml8511-with-arduino/
