@@ -1,3 +1,6 @@
+#newer. use this
+http://www.iotsharing.com/2018/01/create-facebook-messenger-chatbot-monitoring-controlling-devices-raspberrypi-esp32-8266.html
 
 
+#uses messy old hardware stack needs porting
 https://create.arduino.cc/projecthub/phpoc_man/arduino-login-into-google-and-facebook-9ae91d?f=1

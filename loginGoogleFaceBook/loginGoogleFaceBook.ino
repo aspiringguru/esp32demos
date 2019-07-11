@@ -3,13 +3,22 @@
 //credit for excluding passwords from git respo
 //https://arduino.stackexchange.com/questions/40411/hiding-wlan-password-when-pushing-to-github/55583
 
-#include <Phpoc.h>
+#include "config.h"
+
+//#include <Phpoc.h> //not required on esp32, already has wifi shield
+#include "WiFi.h"
+#include "ESPAsyncWebServer.h"
+
 
 // Replace your GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET here
-String GOOGLE_CLIENT_ID      = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com";
-String GOOGLE_CLIENT_SECRET  = "xxxxxxxxxxxxxxxxxxxxxxxx";
-String FACEBOOK_APP_ID ="xxxxxxxxxxxxxxxx";
-String FACEBOOK_CLIENT_TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+
+//String GOOGLE_CLIENT_ID      = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com";
+//String GOOGLE_CLIENT_SECRET  = "";
+
+//https://developers.facebook.com/apps/436911710482618/fb-login/settings/
+//iotdemo1
+String FACEBOOK_APP_ID ="xxxxxxxxxxxxxxxxxxxx"; //
+String FACEBOOK_CLIENT_TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxx";
 
 String gg_access_token                  = "";
 String gg_refresh_token                 = "";
@@ -18,7 +27,8 @@ unsigned long gg_access_token_expire_at = 0;
 String fb_access_token                  = "";
 unsigned long fb_access_token_expire_at = 0;
 
-PhpocServer websocket_server(80);
+//PhpocServer websocket_server(80);
+AsyncWebServer server(80);
 
 String base64_decode(const String &encoded_string)
 {
@@ -228,13 +238,14 @@ void googleDeviceOAuthLogin(){
 	// Step 1: Request device and user codes
 	Serial.println(F("Step 1: Request device and user codes"));
 
+
 	{ // put code in braces to save memory by using local variables
-		String request_body = F("client_id=");
+		request_body = F("client_id=");
 		request_body += GOOGLE_CLIENT_ID;
 		request_body += F("&scope=profile email");
 
 		String response_body = https("POST", "accounts.google.com/o/oauth2/device/code", request_body);
-		//Serial.println(response_body);
+		Serial.println(response_body);
 
 		// Step 2: Handle the authorization server response
 		Serial.println(F("Step 2: Handle the authorization server response"));
@@ -245,6 +256,7 @@ void googleDeviceOAuthLogin(){
 		interval         = JSONvalue(response_body, "interval").toInt();
 		verification_url = JSONvalue(response_body, "verification_url");
 	}
+
 
 	if(!device_code.equals(""))
 	{
@@ -362,20 +374,32 @@ void facebookDeviceOAuthLogin(){
 		request_body += "&scope=email";
 
 		String response_body = https("POST", "graph.facebook.com/v2.6/device/login", request_body);
-		//Serial.println(response_body);
+    Serial.print("response_body:");
+		Serial.println(response_body);
 
 		// Step 2: Handle the authorization server response
 		Serial.println(F("Step 2: Handle the authorization server response"));
 
 		device_code      = JSONvalue(response_body, "code");
+    Serial.print("device_code:");
+    Serial.println(device_code);
 		user_code        = JSONvalue(response_body, "user_code");
+    Serial.print("user_code:");
+    Serial.println(user_code);
 		expires_in       = JSONvalue(response_body, "expires_in").toInt();
+    Serial.print("expires_in:");
+    Serial.println(expires_in);
 		interval         = JSONvalue(response_body, "interval").toInt();
+    Serial.print("interval:");
+    Serial.println(interval);
 		verification_url = JSONvalue(response_body, "verification_uri");
+    Serial.print("verification_url:");
+    Serial.println(verification_url);
 	}
 
 	if(!device_code.equals(""))
 	{
+    Serial.println("device_code.equals('') is false");
 		// Step 3: Display the user code
 		Serial.println(F("Step 3: Display the user code"));
 		Serial.println(F("NEXT"));
@@ -462,8 +486,8 @@ void facebookDeviceOAuthLogin(){
 			}
 		}
 	}
-	//else
-		//Serial.println(F("Invalid resonse from Facebook"));
+	else
+		Serial.println(F("Invalid repsonse from Facebook"));
 }
 
 void setup(){
