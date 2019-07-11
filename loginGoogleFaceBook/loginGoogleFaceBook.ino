@@ -15,7 +15,6 @@
 //String GOOGLE_CLIENT_ID      = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com";
 //String GOOGLE_CLIENT_SECRET  = "";
 
-//https://developers.facebook.com/apps/436911710482618/fb-login/settings/
 //iotdemo1
 String FACEBOOK_APP_ID ="xxxxxxxxxxxxxxxxxxxx"; //
 String FACEBOOK_CLIENT_TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxx";
