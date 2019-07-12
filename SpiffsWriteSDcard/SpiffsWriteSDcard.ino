@@ -1,5 +1,6 @@
 #include <NTPClient.h>
 #include <WiFi.h>
+#include <WiFiUdp.h>
 
 
 const char *ssid     = "SleepyGuest24";
@@ -25,13 +26,13 @@ void setup(){
   }
   Serial.println("Connected");
 
-  //timeClient.begin();
+  timeClient.begin();
 }
 
 void loop() {
-  //timeClient.update();
+  timeClient.update();
 
-  //Serial.println(timeClient.getFormattedTime());
+  Serial.println(timeClient.getFormattedTime());
   Serial.println("blah");
   delay(1000);
 }
