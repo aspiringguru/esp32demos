@@ -1,0 +1,9 @@
+
+
+https://randomnerdtutorials.com/esp32-data-logging-temperature-to-microsd-card/
+
+
+install accurate NTPClient
+download git repo from https://github.com/taranais/NTPClient
+unzip into arduino libraries directory
+C:\Users\Matthew\Documents\Arduino\libraries\

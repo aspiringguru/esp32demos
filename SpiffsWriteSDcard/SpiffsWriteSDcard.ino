@@ -57,6 +57,20 @@ void setup(){
   }
   Serial.println("SD card initialised.");
 
+  // If the data.txt file doesn't exist
+  // Create a file on the SD card and write the data labels
+  Serial.println("Now create file if it doesn't exist.");
+  File file = SD.open("/data.txt");
+  if(!file) {
+    Serial.println("File doens't exist");
+    Serial.println("Creating file...");
+    writeFile(SD, "/data.txt", "Reading ID, Date, Hour, Temperature \r\n");
+  }
+  else {
+    Serial.println("File already exists");  
+  }
+  file.close();
+
 }
 
 void loop() {
@@ -65,4 +79,22 @@ void loop() {
   Serial.println(timeClient.getFormattedTime());
   Serial.println("blah");
   delay(1000);
+}
+
+
+// Write to the SD card (DON'T MODIFY THIS FUNCTION)
+void writeFile(fs::FS &fs, const char * path, const char * message) {
+  Serial.printf("Writing file: %s\n", path);
+
+  File file = fs.open(path, FILE_WRITE);
+  if(!file) {
+    Serial.println("Failed to open file for writing");
+    return;
+  }
+  if(file.print(message)) {
+    Serial.println("File written");
+  } else {
+    Serial.println("Write failed");
+  }
+  file.close();
 }
