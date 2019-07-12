@@ -2,9 +2,17 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
+// Libraries for SD card
+#include "FS.h"
+#include "SD.h"
+#include <SPI.h>
 
-const char *ssid     = "SleepyGuest24";
-const char *password = "sleepyHollow";
+#include "config.h"
+const char *ssid = WIFI_SSID;
+const char *password = WIFI_PASSWORD;
+
+// Define CS pin for the SD card module
+#define SD_CS 5
 
 WiFiUDP ntpUDP;
 
@@ -27,6 +35,28 @@ void setup(){
   Serial.println("Connected");
 
   timeClient.begin();
+
+  // Initialize SD card
+  Serial.println("attempt to mound SD card");
+  SD.begin(SD_CS);  
+  if(!SD.begin(SD_CS)) {
+    Serial.println("Card Mount Failed");
+    return;
+  }
+  Serial.println("failed to mount SD card.");
+
+  uint8_t cardType = SD.cardType();
+  if(cardType == CARD_NONE) {
+    Serial.println("No SD card attached");
+    return;
+  }
+  Serial.println("Initializing SD card...");
+  if (!SD.begin(SD_CS)) {
+    Serial.println("ERROR - SD card initialization failed!");
+    return;    // init failed
+  }
+  Serial.println("SD card initialised.");
+
 }
 
 void loop() {
