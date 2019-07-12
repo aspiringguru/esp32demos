@@ -1,0 +1,93 @@
+
+
+MPS20N0040D-D   0-40kpa, designed for medical blood pressure cuffs
+https://codebender.cc/sketch:335462#MPS20N0040D-D%20Sphygnomanometer.ino
+
+
+
+/*
+Pressure Sensor test Code
+*/
+
+// These constants won't change.  They're used to give names
+// to the pins used:
+const int analogInPin = A0;  // Analog input pin that the potentiometer is attached to
+
+int sensorValue = 0;        // value read from the pressure sensor via the amplifier stage
+float outputValue = 0;        // value output to the Serial port and LCD display
+
+void setup()
+{
+  // initialize serial communications at 9600 bps:
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  // read the analog in value:
+  sensorValue = analogRead(analogInPin);
+  outputValue = map(sensorValue, 10, 1023, 0, 100); //The zero value of sensor is around 10
+
+  // print the results to the serial monitor:
+  Serial.print("sensor = " );
+  Serial.print(sensorValue);
+  Serial.print("\toutput = ");
+  Serial.println(outputValue);
+
+  // wait 500 milliseconds before the next loop
+  // for the analog-to-digital converter to settle
+  // after the last reading:
+  delay(100);
+}
+
+
+
+http://langster1980.blogspot.com/2016/05/calibrating-mps20n0040d-d-pressure.html
+breakout board for sensitivity
+http://langster-electronic-gadgets.kong365.com/en-gb/products/pressure-sensor-breakout-board---mps20n0040d-d
+
+
+
+http://langster1980.blogspot.com/2016/05/calibrating-mps20n0040d-d-pressure.html
+This sensor can be interfaced to a microcontroller such as an Arduino development board using our bridge sensor interface module (HCMODU0073)
+
+https://softroboticstoolkit.com/files/sorotoolkit/files/mps20n0040d-s_datasheet.pdf
+diff amp circuit = useful
+
+
+https://www.youtube.com/watch?v=AB7zgnfkEi4
+screw in type sensor = good
+suit 0-1200kPa
+3 wires
+5v dc supply
+
+
+void setup() {
+    Serial.begin(9600);
+}
+
+void loop(){
+int sensorVal=analogRead(A1);
+Serial.print("Sensor Value: ");
+Serial.print(sensorVal);
+
+float voltage = (sensorVal*5.0)/1024.0;
+    Serial.print("Volts: ");
+    Serial.print(voltage);
+
+  float pressure_pascal = (3.0*((float)voltage-0.47))*1000000.0;
+  float pressure_bar = pressure_pascal/10e5;
+    Serial.print("Pressure = ");
+    Serial.print(pressure_bar);
+    Serial.println(" bars");
+    Serial.print("Pressure = ");
+
+    delay(100);
+}
+
+
+ https://www.youtube.com/watch?v=-O_5U8M04PY
+
+ https://www.robotsthenextspeciesonearth.com/p/hi-all-welcome-to-yet-another-video.html
+
+ 

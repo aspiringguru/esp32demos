@@ -1,0 +1,36 @@
+12/7/19  bought 4 of neo 6m + 4 of lora modules to use with esp32.
+
+
+easily resolved esp32-gps + neo 6m git issue
+https://github.com/espressif/arduino-esp32/issues/2456
+includes example code
+
+
+https://randomnerdtutorials.com/guide-to-neo-6m-gps-module-with-arduino/
+
+https://lastminuteengineers.com/neo6m-gps-arduino-tutorial/
+
+
+
+
+glonass = russian version of gps
+https://beebom.com/what-is-glonass-and-how-it-is-different-from-gps/
+
+quirky gps tutorial
+https://www.youtube.com/watch?v=8I4ZuWn1b_8
+https://www.hackster.io/Oniichan_is_ded/u-blox-neo-6m-gps-module-tutorial-0753d9
+nb: gps module needs max 5V input. must be regulated!!!!
+
+
+
+us$ 4.59
+https://www.ebay.com/itm/Raspberry-Ublox-NEO-6M-Control-Pi-3V-5V-GPS-Module-Arduino-GY-NEO6MV2-For-Flight/113799770341?hash=item1a7efeb0e5:g:mWgAAOSwoIFdFCT7
+
+US$5
+https://www.ebay.com/itm/GYNEO6MV2-GPS-Module-NEO-6M-GY-NEO6MV2-Board-With-Antenna-For-ArduinRKCA/143289418660?_trkparms=ispr%3D1&hash=item215cb703a4:g:YVwAAOSwhWRatGHm&enc=AQADAAAB0KX%2FKt4E1xf3SDqEdBclaYZjoDOuFniI2ww5%2F6UCYyAEj31WGDhoWNQ%2FKq%2B%2FaIR0keXYq0PzwEr%2BXsEPjJnejPJju6QUS2exCwfkc93hSCFy4xFqFqOZG%2FCmOw%2BrjDYLCWIviJr1PwNlWbwIGs6mii68ncyuAyVpww4mhPtcoO%2B%2BGZubKvQuGlGcE%2BtKLU2%2B5p2PvFIacs%2F%2F%2F1hXID%2BttVLr1Qtif6wFVz9Q%2FwgfsKFbojCa9pYLm0mzQ4D6nvOuUF4t%2FbDWJRWo39q9XNlf2F14vHxkoDk%2FLYtDrOSyHQ2WLQZbOTFK93V7zBO1Z%2BaaKvEGCKIz78oSf0aZWmtnkJhbRrkB5clDRphCQEtwoBNxQ%2FI95Z2VcKyqG7CcxlPBCAs4HnvmMgcKs%2FETyNOmFlYQjikz0TqnHEm1RQPpUbEio650nfHeG1qTJhV%2BsFNqNC9VvXso0OqzN%2Ba7y5R3rVLRbc5aCK2fi9w3Snlqf6can2P1eE0TrLwqXwgpA9%2FFa3GRP6bRSxrhygtVJhQdcovl8dEF8p4O5BOUnNVHNZWDJjNyE31BWUlrw3lLI8JZb%2F%2BY4mtgvXmw1KRpRo7Xr3%2B1J1gT89lteof2YJE50%2Fsx&checksum=143289418660a4ea37f50ab84bf0a5e0ad2645b6acd1
+
+US$13 = more expensive, has glonass. not needed really?
+https://www.ebay.com/itm/Ublox-Neo-M8N-module-chip-UART-TTL-Smart-GPS-gnss-antenna-dual-GLONASS-receiver/362599884494?epid=27030503202&hash=item546ca326ce:g:B2UAAOSwBRlcnd3w
+
+$US40 = expensive!!
+https://www.ebay.com/itm/Adafruit-Ultimate-GPS-Breakout-66-channel-10-Hz-updates-Raspberry-Pi-Arduino-v3/171438750071?_trkparms=ispr%3D1&hash=item27ea8bb977:g:bjAAAOSwjDZYbVEb&enc=AQADAAAB8KX%2FKt4E1xf3SDqEdBclaYbSL8%2Flcym2aBYCVsHHQTNndvCv%2BqAtTa52c0Gx2EaQznnCixMfu%2BAc%2BPzGJiBWjE5X5qUp8F207mdgKc1DsWEBg9FZmqlr60AoL7r7cIq5lfYiaGFUpjnEImkMNX0fXSkv83ig8rJZlM5HGV%2FeE1b8jMmqaLwA8M8p5%2BckBEH%2FVyV5IzfUsSYNAFJt%2F9eIvv5UXtsm3ZAG9QSLAP4cjeZn5muVgFmfhBFaADjjSB1ZS7BzDqHiVsMjxZqQmACCcMwAU%2FTCl6xkOm3fctICmsTXckW2vne50c5wEAr5uuaQLuSBIoGcbe31l9SGduYRIymwPUbbg7TRnz%2FkJG1RFcqq%2BfDqYspC3JqrpjbL3E%2FAoD9yBsrm2i5vTN%2FKPJcWvKZICBSeF80l2GJFL4EBNW73xxfdttvrrM5gNHSUACZTbpMFaLPMon1Z7pTpui49Dt4qad%2BdG4Oy7ptiG5C2ksm1SVipD%2FKlGK7Pt1S5RolxgSIUkUwsjN%2BDt5wMaHEq7lTaWPp03E97Qrc8PpoNLfA4XXcGBB%2FDbI7y86800KWLA4gE%2Bal0PVgoj5fQ17%2FGNNbLh9EtiGxj76E%2F47i3jbKLfGJc%2BfaoTzdUn72AQGz%2Bgv%2FN3nneCp%2BxqdetiFrrQ58%3D&checksum=1714387500719b14eeb0d28f40e2b5e4845135e65210

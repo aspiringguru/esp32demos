@@ -1,0 +1,23 @@
+
+good au accent explaining, has sketch, purchase link
+https://www.youtube.com/watch?v=kuBG0U6X7Jw
+
+
+
+
+
+
+
+
+software library based voice generation
+https://rimstar.org/science_electronics_projects/ardunio_speech_synthesizer_using_talkie_library.htm
+above uses this speech library
+https://github.com/going-digital/Talkie
+https://www.arduinolibraries.info/libraries/talkie
+The voice is familiar from Texas Instruments Speak & Spell family of educational products.
+
+
+
+
+https://www.youtube.com/watch?v=gxpHDUHcBMk
+.wav file player on esp32
