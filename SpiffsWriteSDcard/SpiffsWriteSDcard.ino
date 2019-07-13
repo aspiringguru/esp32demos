@@ -10,8 +10,18 @@
 #include "config.h"
 const char *ssid = WIFI_SSID;
 const char *password = WIFI_PASSWORD;
+
+//todo: these should be in config.h, had errors - conversion of object type??
 uint64_t uS_TO_S_FACTOR = 1000000;
 uint64_t time2sleep = 5;//change to longer intervals later, ie 600 seconds
+
+//setup DHT sensor
+//https://github.com/beegee-tokyo/DHTesp
+//download zip file and unzip into arduino libraries folder before compiling, restart arduino if needed
+#include "DHTesp.h"
+#define DHTpin 15    //D15 of ESP32 DevKit
+DHTesp dht;
+
 
 // Save reading number on RTC memory. this is stored during deep sleep
 //https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/deep-sleep-stub.html
@@ -23,7 +33,8 @@ String dataMessage;
 String formattedDate;
 String dayStamp;
 String timeStamp;
-
+float humidity;
+float temperature;
 
 // Define CS pin for the SD card module
 #define SD_CS 5
@@ -61,8 +72,29 @@ void setup(){
 
   timeClient.begin();
 
+  //setup for DHT11 or DHT22 sensor types
+  dht.setup(DHTpin, DHTesp::DHT11); 
+  //dht.setup(DHTpin, DHTesp::DHT22); 
+  Serial.print("dht.getMinimumSamplingPeriod()");
+  Serial.println(dht.getMinimumSamplingPeriod());
+  //pause to allow the DHT sensor to stabilise and get reading
+  delay(dht.getMinimumSamplingPeriod()*5);
+  humidity = dht.getHumidity();
+  temperature = dht.getTemperature();
+  Serial.print(dht.getStatusString());
+  Serial.print("\t humidity:");
+  Serial.print(humidity, 1);
+  Serial.print("\t\t temperature(C):");
+  Serial.print(temperature, 1);
+  Serial.print("\t\ttemp(F):");
+  Serial.print(dht.toFahrenheit(temperature), 1);
+  Serial.print("\t\t HeatIndex(C):");
+  Serial.print(dht.computeHeatIndex(temperature, humidity, false), 1);
+  Serial.print("\t\t HeatIndex(C):");
+  Serial.println(dht.computeHeatIndex(dht.toFahrenheit(temperature), humidity, true), 1);
+
   // Initialize SD card
-  Serial.println("attempt to mound SD card");
+  Serial.println("attempt to mount SD card");
   SD.begin(SD_CS);  
   if(!SD.begin(SD_CS)) {
     Serial.println("Card Mount Failed");
@@ -89,7 +121,7 @@ void setup(){
   if(!file) {
     Serial.println("File doens't exist");
     Serial.println("Creating file...");
-    writeFile(SD, "/data.txt", "Reading ID, Date, Hour \r\n");
+    writeFile(SD, "/data.txt", "Reading ID, Date, Hour, Humidity, Temperature \r\n");
   }
   else {
     Serial.println("File already exists");  
@@ -159,14 +191,14 @@ void appendFile(fs::FS &fs, const char * path, const char * message) {
 }
 
 // Write the sensor readings on the SD card
+//nb: this is .csv format
+//todo: modify to make filename a variable in function call
 void logSDCard() {
-  dataMessage = String(readingID) + "," + String(dayStamp) + "," + String(timeStamp) + "," + "\r\n";
+  dataMessage = String(readingID) + "," + String(dayStamp) + "," + String(timeStamp) + "," + String(humidity) + "," + String(temperature) +  "\r\n";
   Serial.print("Saving data to file : ");
   Serial.println(dataMessage);
   appendFile(SD, "/data.txt", dataMessage.c_str());
 }
-
-
 
 
 // Function to get date and time from NTPClient
