@@ -7,3 +7,8 @@ install accurate NTPClient
 download git repo from https://github.com/taranais/NTPClient
 unzip into arduino libraries directory
 C:\Users\Matthew\Documents\Arduino\libraries\
+
+
+used a simple method to print Uint64
+look at this library for printing Uint64 later
+https://github.com/yoursunny/PriUint64/blob/master/src/PriUint64.h
